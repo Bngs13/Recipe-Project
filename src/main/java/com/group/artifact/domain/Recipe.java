@@ -15,6 +15,10 @@ public class Recipe {
     private String source;
     private String url;
     private String direction;
+    //20181225, EnumType.ORDINAL is default, use it when the order doesn't matter, shown like number in db
+    //EnumType.STRING enums are linked to the order, but you can't change them, just adding is possible, shown like string in db
+    @Enumerated(value = EnumType.STRING)
+    private Difficulity difficulity;
     @OneToOne(cascade = CascadeType.ALL)
     private Note notes;
     @Lob
@@ -25,6 +29,11 @@ public class Recipe {
     //20181225, Bidirectional
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "recipe")
     private Set<Ingredient> ingredient;
+
+    @ManyToMany
+    @JoinTable(name = "recipe_category", joinColumns = @JoinColumn(name = "recipe_id"),
+            inverseJoinColumns = @JoinColumn(name = "category_id"))
+    private Set<Category> category;
 
     public Long getId() {
         return id;
@@ -113,4 +122,21 @@ public class Recipe {
     public void setIngredient(Set<Ingredient> ingredient) {
         this.ingredient = ingredient;
     }
+
+    public Difficulity getDifficulity() {
+        return difficulity;
+    }
+
+    public void setDifficulity(Difficulity difficulity) {
+        this.difficulity = difficulity;
+    }
+
+    public Set<Category> getCategory() {
+        return category;
+    }
+
+    public void setCategory(Set<Category> category) {
+        this.category = category;
+    }
 }
+
