@@ -31,6 +31,7 @@ public class Recipe {
     private Set<Ingredient> ingredient;
 
     @ManyToMany
+    //20181227, name is for table name, others are column names
     @JoinTable(name = "recipe_category", joinColumns = @JoinColumn(name = "recipe_id"),
             inverseJoinColumns = @JoinColumn(name = "category_id"))
     private Set<Category> category;
