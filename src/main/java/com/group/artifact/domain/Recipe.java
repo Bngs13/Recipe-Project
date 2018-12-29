@@ -1,6 +1,8 @@
 package com.group.artifact.domain;
 
 import javax.persistence.*;
+import java.util.HashSet;
+import java.util.Optional;
 import java.util.Set;
 
 @Entity
@@ -14,6 +16,7 @@ public class Recipe {
     private Integer serving;
     private String source;
     private String url;
+    @Lob
     private String direction;
     //20181225, EnumType.ORDINAL is default, use it when the order doesn't matter, shown like number in db
     //EnumType.STRING enums are linked to the order, but you can't change them, just adding is possible, shown like string in db
@@ -35,6 +38,12 @@ public class Recipe {
     @JoinTable(name = "recipe_category", joinColumns = @JoinColumn(name = "recipe_id"),
             inverseJoinColumns = @JoinColumn(name = "category_id"))
     private Set<Category> category;
+
+    public Recipe() {
+        //20181228, you can initialize them into related property's getter method rather than constructor
+        this.ingredient = new HashSet<>();
+        this.category = new HashSet<>();
+    }
 
     public Long getId() {
         return id;
@@ -138,6 +147,14 @@ public class Recipe {
 
     public void setCategory(Set<Category> category) {
         this.category = category;
+    }
+
+    //20181229
+    public Recipe addIngredient(Ingredient ingredient) {
+        if (!Optional.of(ingredient).isPresent()) return null;
+        ingredient.setRecipe(this);
+        this.ingredient.add(ingredient);
+        return this;
     }
 }
 
