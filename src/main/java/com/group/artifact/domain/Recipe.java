@@ -115,6 +115,7 @@ public class Recipe {
 
     public void setNotes(Note notes) {
         this.notes = notes;
+        notes.setRecipe(this);
     }
 
     public Byte[] getImage() {
