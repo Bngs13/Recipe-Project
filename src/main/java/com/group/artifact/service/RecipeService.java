@@ -7,5 +7,7 @@ import java.util.Set;
 public interface RecipeService {
 
     Set<Recipe> getRecipes();
-    Recipe findById(Long id); //20190105
+    //20190105
+    Recipe findById(Long id);
+    Long save(Recipe recipe);
 }

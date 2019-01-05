@@ -4,6 +4,7 @@ import com.group.artifact.domain.Recipe;
 import com.group.artifact.repository.RecipeRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.HashSet;
 import java.util.Optional;
@@ -30,6 +31,9 @@ public class RecipeServiceImpl implements RecipeService {
 
     //20190105
     @Override
+    @Transactional//doing a conversion outside the scope. So if we hit any lazy loaded
+            //properties it would go kaboom. So we are expanding out the transactional scope to
+            //this method and then we just returned back a converted object so we take in and we're reusing that method
     public Recipe findById(Long id) {
         if (id == 0) return null;
 
@@ -40,4 +44,16 @@ public class RecipeServiceImpl implements RecipeService {
 
         return recipe.get();
     }
+
+    //20190105
+    @Override
+    @Transactional
+    public Long save(Recipe recipe) {
+        if (recipe == null) return 0l;
+
+        Recipe saveRecipe = recipeRepository.save(recipe);
+        log.debug("Saved RecipeId:" + saveRecipe.getId());
+        return saveRecipe.getId();
+    }
+
 }
