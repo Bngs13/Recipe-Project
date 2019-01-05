@@ -56,4 +56,11 @@ public class RecipeServiceImpl implements RecipeService {
         return saveRecipe.getId();
     }
 
+    //20190105
+    @Override
+    public void delete(Long id) {
+        if(id==0)return;
+        recipeRepository.deleteById(id);
+    }
+
 }

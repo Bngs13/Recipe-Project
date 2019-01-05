@@ -52,15 +52,17 @@
         </div>
         <div class="row header  m-15">
             <div class="col-md-2">ID</div>
-            <div class="col-md-6">Description</div>
+            <div class="col-md-4">Description</div>
             <div class="col-md-2">View</div>
             <div class="col-md-2">Update</div>
+            <div class="col-md-2">Delete</div>
         </div>
         <div class="row  m-15" th:each="recipe : ${recipes}">
             <div class="col-md-2" th:text="${recipe.id}"></div>
-            <div class="col-md-6" th:text="${recipe.description}"></div>
+            <div class="col-md-4" th:text="${recipe.description}"></div>
             <div class="col-md-2"><a th:href="@{'/recipe/showdetail/'+${recipe.id}}">View</a></div>
             <div class="col-md-2"><a th:href="@{'/recipe/'+${recipe.id}+'/update'}">Update</a></div>
+            <div class="col-md-2"><a th:href="@{'/recipe/'+${recipe.id}+'/delete'}">Delete</a></div>
         </div>
     </div>
 </div>

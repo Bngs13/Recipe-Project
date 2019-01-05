@@ -10,4 +10,5 @@ public interface RecipeService {
     //20190105
     Recipe findById(Long id);
     Long save(Recipe recipe);
+    void delete(Long id);
 }
