@@ -1,4 +1,4 @@
-package com.group.artifact.service;
+package com.group.artifact.service.Recipe;
 
 import com.group.artifact.domain.Recipe;
 

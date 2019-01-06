@@ -4,7 +4,7 @@ import com.group.artifact.command.RecipeCommand;
 import com.group.artifact.converter.RecipeCommandToRecipe;
 import com.group.artifact.converter.RecipeToRecipeCommand;
 import com.group.artifact.domain.Recipe;
-import com.group.artifact.service.RecipeService;
+import com.group.artifact.service.Recipe.RecipeService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;

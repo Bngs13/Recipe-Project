@@ -1,6 +1,6 @@
 package com.group.artifact.controller;
 
-import com.group.artifact.service.RecipeService;
+import com.group.artifact.service.Recipe.RecipeService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
