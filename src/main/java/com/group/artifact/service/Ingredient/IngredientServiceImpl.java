@@ -66,7 +66,6 @@ public class IngredientServiceImpl implements IngredientService {
     @Transactional
     public void save(Ingredient ingredient) {
         if (ingredient == null) return;
-
         ingredientRepository.save(ingredient);
     }
 
