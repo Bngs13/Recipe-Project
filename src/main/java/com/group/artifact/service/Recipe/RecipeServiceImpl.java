@@ -1,6 +1,7 @@
 package com.group.artifact.service.Recipe;
 
 import com.group.artifact.domain.Recipe;
+import com.group.artifact.exception.NotFoundExceptionCustom;
 import com.group.artifact.repository.RecipeRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -32,16 +33,17 @@ public class RecipeServiceImpl implements RecipeService {
     //20190105
     @Override
     @Transactional//doing a conversion outside the scope. So if we hit any lazy loaded
-            //properties it would go kaboom. So we are expanding out the transactional scope to
-            //this method and then we just returned back a converted object so we take in and we're reusing that method
+    //properties it would go kaboom. So we are expanding out the transactional scope to
+    //this method and then we just returned back a converted object so we take in and we're reusing that method
     public Recipe findById(Long id) {
         if (id == 0) return null;
 
         Optional<Recipe> recipe = recipeRepository.findById(id);
 
         if (!recipe.isPresent())
-            throw new RuntimeException("Recipe Not Found!");
-
+            //20190209, Error handling is added
+            //throw new RuntimeException("Recipe Not Found!");
+            throw new NotFoundExceptionCustom("Recipe Not Found!");
         return recipe.get();
     }
 
@@ -59,7 +61,7 @@ public class RecipeServiceImpl implements RecipeService {
     //20190105
     @Override
     public void delete(Long id) {
-        if(id==0)return;
+        if (id == 0) return;
         recipeRepository.deleteById(id);
     }
 

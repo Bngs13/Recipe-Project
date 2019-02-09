@@ -27,15 +27,20 @@ public class IngredientServiceImpl implements IngredientService {
     @Override
     public Set<Ingredient> getIngredientByRecipeId(Long recipeId) {
         if (recipeId == 0) return null;
-        Recipe recipe = recipeService.findById(recipeId);
-        Optional optionalRecipe = Optional.of(recipe);
-        Set<Ingredient> ingredients = new HashSet<>();
+        try {
+            Recipe recipe = recipeService.findById(recipeId);
+            Optional optionalRecipe = Optional.of(recipe);
+            Set<Ingredient> ingredients = new HashSet<>();
 
-        if (optionalRecipe.isPresent())
-            ingredients = recipe.getIngredient();
+            if (optionalRecipe.isPresent())
+                ingredients = recipe.getIngredient();
 
-        return ingredients;
-    }
+            return ingredients;
+        }
+        catch (Exception e) {
+            return  null;
+        }
+        }
 
     //20190107
     //TODO: Check recipe and uom when ingredients update

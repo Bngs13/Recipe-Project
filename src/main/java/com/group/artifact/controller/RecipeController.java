@@ -8,10 +8,13 @@ import com.group.artifact.service.Recipe.RecipeService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+
+import javax.validation.Valid;
 
 //20190105
 @Slf4j
@@ -20,6 +23,7 @@ public class RecipeController {
     private final RecipeService recipeService;
     private final RecipeCommandToRecipe convertToRecipe;
     private final RecipeToRecipeCommand convertToRecipeCommand;
+    private static final String RECIPE_RECIPEFORM_URL = "recipe/create";
 
     public RecipeController(RecipeService recipeService, RecipeCommandToRecipe convertToRecipe, RecipeToRecipeCommand convertToRecipeCommand) {
         this.recipeService = recipeService;
@@ -37,12 +41,16 @@ public class RecipeController {
     @GetMapping("/recipe/create/")
     public String Create(Model model) {
         model.addAttribute("recipe", new RecipeCommand());
-        return "recipe/create";
+        return RECIPE_RECIPEFORM_URL;
     }
 
     @PostMapping("recipe") //20190105, new way of @RequestMapping(name="recipe",method = RequestMethod.POST)
     //@RequestMapping(name = "recipe")
-    public String SaveOrUpdate(@ModelAttribute RecipeCommand command) {
+    public String SaveOrUpdate(@Valid @ModelAttribute RecipeCommand command, BindingResult bindingResult) {
+        if (bindingResult.hasErrors()) {
+            bindingResult.getAllErrors().forEach(x -> log.debug(x.toString()));
+            return RECIPE_RECIPEFORM_URL;
+        }
         Recipe recipe = convertToRecipe.convert(command);
         Long id = recipeService.save(recipe);
         if (id == 0) return "recipe/create";
@@ -55,15 +63,13 @@ public class RecipeController {
         Recipe recipe = recipeService.findById(Long.valueOf(id));
         RecipeCommand command = convertToRecipeCommand.convert(recipe);
         model.addAttribute("recipe", command);
-        return "recipe/create";
+        return RECIPE_RECIPEFORM_URL;
     }
 
-    @GetMapping ("recipe/{id}/delete") //without this annotation, the method is supplied by all http method
+    @GetMapping("recipe/{id}/delete") //without this annotation, the method is supplied by all http method
     public String Delete(@PathVariable String id) {
         log.debug("Deleted id" + id);
         recipeService.delete(Long.valueOf(id));
         return "redirect:/";
-
     }
-
 }
