@@ -1,16 +1,7 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" th:replace="~{fragment/layout :: layout (~{::body},'recipes')}"
+      xmlns:th="http://www.thymeleaf.org">
 <head>
-    <!--20190105, Thymeleaf href is added, cause thymeleaf for run time, custom link or scripts for trying with browser-->
-    <link crossorigin="anonymous" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"
-          integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" rel="stylesheet"
-          th:href="@{/webjars/bootstrap/4.2.1/css/bootstrap.min.css}">
-    <script src="/webjars/jquery/3.0.0/jquery.min.js"></script>
-    <script crossorigin="anonymous"
-            integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k"
-            src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js"
-            th:href="@{/webjars/bootstrap/4.2.1/js/bootstrap.min.js}"></script>
-    <meta charset="UTF-8"/>
     <title>Recipe Home</title>
 </head>
 <body>

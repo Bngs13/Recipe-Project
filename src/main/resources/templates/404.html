@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en" th:replace="~{fragment/layout :: layout (~{::body},'404')}"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <style>
+        .card-container .card {
+            margin-bottom: 10px;
+        }
+
+        .card-primary {
+            border-color: #337ab7;
+        }
+
+        .card-primary > .card-heading {
+            color: #fff;
+            background-color: #337ab7;
+            border-color: #337ab7;
+            border-bottom: 0;
+
+        }
+    </style>
+    <title>404 Not Found Error</title>
+</head>
+<body>
+<div class="container-fluid" style="margin-top: 20px">
+    <div class="row">
+        <div class="col-md-6 col-md-offset-3">
+            <h1>404 Not Found</h1>
+        </div>
+    </div>
+</div>
+</body>
+</html>
