@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en" th:replace="~{fragment/layout :: layout (~{::body},'imageForm')}"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Image Upload Form</title>
+</head>
+<body>
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-6 col-md-offset-3">
+            <div class="panel-group">
+                <div class="panel panel-primary">
+                    <div class="panel-heading">
+                        <h1 class="panel-title">Upload a new recipe image</h1>
+                    </div>
+                    <div class="panel-body">
+                        <div class="row">
+                            <div class="col-md-5">
+                                <form  action="http:\\localhost" enctype="multipart/form-data" method="post"
+                                       th:action="@{'/recipe/' + ${recipe.getId()} + '/image'}">
+                                    <label class="control-label">Select File</label>
+                                    <input class="file" id="imagefile" name="imagefile" type="file">
+                                    <button class="btn btn-primary" type="submit">Submit</button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

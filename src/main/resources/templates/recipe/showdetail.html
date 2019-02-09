@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en" th:replace="~{fragment/layout :: layout (~{::body},'showDetail')}"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Show Recipe</title>
+    <style>
+        .card-container .card {
+            margin-bottom: 10px;
+        }
+
+        .card-primary {
+            border-color: #337ab7;
+        }
+
+        .card-primary > .card-heading {
+            color: #fff;
+            background-color: #337ab7;
+            border-color: #337ab7;
+            border-bottom: 0;
+
+        }
+    </style>
+</head>
+<body>
+<div class="container-fluid">
+    <div class="card-container">
+        <div class="card card-primary">
+            <div class="card-heading">
+                <div class="row">
+                    <div class="col-md-3">
+                        <h4 class="panel-title" th:text="${recipe.description}">Recipe Description Here!</h4>
+                    </div>
+
+                    <div class="col-md-1">
+                        <a class="btn btn-default" href="#"
+                           role="button" th:href="@{'/recipe/' + ${recipe.id} + '/image'}">Change Image</a>
+                    </div>
+                </div>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-3">
+                        <h5>Categories:</h5>
+                    </div>
+                    <div class="col-md-6">
+                        <ul>
+                            <li th:each="category:${recipe.category}" th:text="${category.getDescription()}"></li>
+                        </ul>
+                    </div>
+                    <div class="col-md-3">
+                        <img height="200"
+                             src="../../static/images/guacamole400x400WithX.jpg"
+                             th:src="@{/images/guacamole400x400WithX.jpg}" width="200">
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-3">
+                        <h5>Prep Time:</h5>
+                    </div>
+                    <div class="col-md-3">
+                        <p th:text="${(recipe.prepTime) + ' min.'}"></p>
+                    </div>
+                    <div class="col-md-3">
+                        <h5>Difficulty:</h5>
+                    </div>
+                    <div class="col-md-3">
+                        <p th:text="${recipe.difficulity}"></p>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-3">
+                        <h5>Cooktime:</h5>
+                    </div>
+                    <div class="col-md-3">
+                        <p th:text="${(recipe.cookTime) + ' min.'}"></p>
+                    </div>
+                    <div class="col-md-3">
+                        <h5>Servings:</h5>
+                    </div>
+                    <div class="col-md-3">
+                        <p th:text="${recipe.serving}"></p>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-3">
+                        <h5>Source:</h5>
+                    </div>
+                    <div class="col-md-3">
+                        <p th:text="${recipe.source}"></p>
+                    </div>
+                    <div class="col-md-3">
+                        <h5>URL:</h5>
+                    </div>
+                    <div class="col-md-3">
+                        <p th:text="${recipe.url}"></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="card card-primary">
+            <div class="card-heading">
+                <div class="row">
+                    <div class="col-md-11 ">
+                        <h4 class="panel-title">Ingredients</h4>
+                    </div>
+                    <div class="col-md-1">
+                        <a class="btn btn-light" href="#" role="button" th:href="@{'/recipe/'+${recipe.id}+'/ingredients'}">View</a>
+                    </div>
+                </div>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-12">
+                        <ul>
+                            <li th:each="ingredient:${recipe.ingredient}"
+                                th:text="${(ingredient.getAmount()+' '+ ingredient.getUom().getDescription()+' '+ ingredient.description)}"></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="card card-primary">
+            <div class="card-heading">
+                <h4 class="card-title">Directions</h4>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-12">
+                        <p th:text="${recipe.direction}"></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="card card-primary">
+            <div class="card-heading">
+                <h4 class="card-title">Notes</h4>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-12">
+                        <p th:text="${recipe.notes.recipeNotes}"></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

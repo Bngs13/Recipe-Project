@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en" th:replace="~{fragment/layout :: layout (~{::body},'recipes')}"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Recipe Home</title>
+</head>
+<body>
+<style>
+    .borders {
+        border-radius: 8px;
+        border: 1px solid #0b70b5;
+        width: 50%;
+        margin: 0 auto;
+    }
+
+    .bg-blue {
+        background-color: #0b70b5;
+        color: white;
+    }
+
+    .header {
+        font-size: 20px;
+        border-bottom: 2px solid #0b70b5;
+        font-weight: bold;
+    }
+
+    .m-t-20 {
+        margin-top: 20px;
+    }
+
+    .m-15 {
+        margin: 15px;
+    }
+
+    .card-title {
+        padding: 10px;
+    }
+</style>
+<div class="container-fluid m-t-20">
+    <div class="borders">
+        <div class="bg-blue">
+            <h4 class="card-title">My Recipes!</h4>
+        </div>
+        <div class="row header  m-15">
+            <div class="col-md-2">ID</div>
+            <div class="col-md-4">Description</div>
+            <div class="col-md-2">View</div>
+            <div class="col-md-2">Update</div>
+            <div class="col-md-2">Delete</div>
+        </div>
+        <div class="row  m-15" th:each="recipe : ${recipes}">
+            <div class="col-md-2" th:text="${recipe.id}"></div>
+            <div class="col-md-4" th:text="${recipe.description}"></div>
+            <div class="col-md-2"><a th:href="@{'/recipe/showdetail/'+${recipe.id}}">View</a></div>
+            <div class="col-md-2"><a th:href="@{'/recipe/'+${recipe.id}+'/update'}">Update</a></div>
+            <div class="col-md-2"><a th:href="@{'/recipe/'+${recipe.id}+'/delete'}">Delete</a></div>
+        </div>
+    </div>
+</div>
+</body>
+</body>
+</html>
